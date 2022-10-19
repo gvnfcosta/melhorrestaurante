@@ -1,19 +1,13 @@
-import 'package:chat/providers/home_controller.dart';
-import 'package:provider/provider.dart';
-import '../pages/tela_inicial.dart';
+import 'package:chat/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'providers/home_controller.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => HomeController(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -25,10 +19,24 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.grey,
               secondaryHeaderColor: Colors.deepOrange,
               brightness: Brightness.dark),
-          home: const Telainicial(),
+          home: const HomePage(),
           debugShowCheckedModeBanner: false,
         );
       },
     );
   }
 }
+
+        // themeMode: ThemeMode.light,
+        // theme: NeumorphicThemeData(
+        //     baseColor: Color(0xFFFFFFFF),
+        //     lightSource: LightSource.topLeft,
+        //     depth: 10),
+        // darkTheme: NeumorphicThemeData(
+        //     baseColor: Color(0xFF3E3E3E),
+        //     lightSource: LightSource.topLeft,
+        //     depth: 6),
+        //home: Telainicial(),
+        // home: Provider(
+        //   create: (_) => Telainicial(),
+        // ),

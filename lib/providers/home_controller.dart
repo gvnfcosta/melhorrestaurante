@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/dados.dart';
 
-class HomeController extends ChangeNotifier {
+class HomeController with ChangeNotifier {
   static HomeController instance = HomeController();
 
   void verificaGanhador(List items) {
