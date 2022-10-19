@@ -40,9 +40,9 @@ class _HomePageState extends State<HomePage> {
 
     //int primeiroLista = items.first.id.indexOf('');
 
-    int maiorVoto = items
-        .map((valor) => valor.votos)
-        .reduce((value, element) => value > element ? value : element);
+    // int maiorVoto = items
+    //     .map((valor) => valor.votos)
+    //     .reduce((value, element) => value > element ? value : element);
 
     //for (var i = 0; i < items.length; i++) {
     //quantosVotaram += this.items[i].votos;
@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[200],
       body: Container(
         margin: const EdgeInsets.fromLTRB(10, 30, 10, 10),
+        width: 340,
         color: Colors.grey[200],
         child: Column(
           children: [
@@ -120,11 +121,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const Divider(color: Colors.black),
-            Column(
-              children: items.map((item) {
-                return RestaurantCard(item, item.maisVotado, callback);
-              }).toList(),
-              //var botao = callBack () => print('b');
+            Expanded(
+              child: ListView(children: [
+                Column(
+                  children: items.map((item) {
+                    return RestaurantCard(item, item.maisVotado, callback);
+                  }).toList(),
+                  //var botao = callBack () => print('b');
+                ),
+              ]),
             ),
 
             //return RestaurantCard(lista.id, lista.nome, lista.tipo);

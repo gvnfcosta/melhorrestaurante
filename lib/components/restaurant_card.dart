@@ -1,5 +1,3 @@
-import 'package:chat/data/lista_dados.dart';
-import 'package:chat/providers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:intl/intl.dart';
@@ -8,12 +6,12 @@ import '../util/constants.dart';
 import '../models/dados.dart';
 
 class RestaurantCard extends StatefulWidget {
-  RestaurantCard(this.item, this.maisVotado, this.callback, {super.key});
+  const RestaurantCard(this.item, this.maisVotado, this.callback, {super.key});
   //RestaurantCard(this.id, this.nome, this.tipo, {super.key});
 
   final Dados item;
-  bool maisVotado = false;
-  VoidCallback callback;
+  final bool maisVotado;
+  final VoidCallback callback;
 
   @override
   State<RestaurantCard> createState() => _RestaurantCardState();
@@ -27,8 +25,8 @@ class _RestaurantCardState extends State<RestaurantCard> {
   Widget build(BuildContext context) {
     double totalVotos = 0;
     bool ganhador = widget.item.maisVotado;
-    final controller = HomeController();
-    final List<Dados> items = listaDados;
+    //final controller = HomeController();
+    //final List<Dados> items = listaDados;
 
     NumberFormat formatter = NumberFormat("##0");
     double votoIndividual = double.parse(widget.item.votos.toString());
@@ -103,7 +101,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5.0),
-                    child: Container(
+                    child: SizedBox(
                       width: 200,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
