@@ -2,15 +2,16 @@ import 'package:chat/data/lista_dados.dart';
 import 'package:chat/providers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import '../util/constants.dart';
 import '../models/dados.dart';
 
 class RestaurantCard extends StatefulWidget {
-  RestaurantCard(this.item, this.maisVotado, {Key? key}) : super(key: key);
+  RestaurantCard(this.item, this.maisVotado, this.callback, {Key? key})
+      : super(key: key);
 
   final Dados item;
   bool maisVotado = false;
+  VoidCallback callback;
 
   @override
   State<RestaurantCard> createState() => _RestaurantCardState();
@@ -28,9 +29,7 @@ class _RestaurantCardState extends State<RestaurantCard> {
     double votoIndividual = double.parse(widget.item.votos.toString());
     totalVotos += votoIndividual;
 
-    setState(() {
-      if (widget.maisVotado) ganhador = true;
-    });
+    if (widget.maisVotado) ganhador = true;
 
     return Row(children: [
       Stack(children: [
@@ -80,21 +79,22 @@ class _RestaurantCardState extends State<RestaurantCard> {
         padding: const EdgeInsets.only(left: 5.0),
         child: Row(children: [
           TextButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[900],
-                  elevation: 4,
-                  shadowColor: Colors.grey,
-                  side: const BorderSide(width: 1, color: Colors.grey)),
-              onPressed: () {
-                setState(() {
-                  widget.item.votos++;
-                  widget.item.maisVotado;
-                  //controller.verificaGanhador(items);
-                });
-                HomeController.instance.verificaGanhador(items);
-              },
-              child: const Text('VOTAR',
-                  style: TextStyle(color: Colors.white, fontSize: 12))),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange[900],
+                elevation: 4,
+                shadowColor: Colors.grey,
+                side: const BorderSide(width: 1, color: Colors.grey)),
+            onPressed: () {
+              setState(() {
+                widget.item.votos++;
+                widget.item.maisVotado;
+                //HomeController.instance.verificaGanhador(items);
+                widget.callback();
+              });
+            },
+            child: const Text('VOTAR',
+                style: TextStyle(color: Colors.white, fontSize: 12)),
+          ),
         ]),
       ),
     ]);
